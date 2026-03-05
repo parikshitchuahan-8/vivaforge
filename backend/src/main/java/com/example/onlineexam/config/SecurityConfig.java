@@ -87,9 +87,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://your-vercel-project.vercel.app");
-        config.addAllowedOrigin("http://localhost:5175");
-        config.addAllowedOrigin("http://localhost:5174");
+        config.addAllowedOrigin("https://onlineexamination.vercel.app/");
+       // config.addAllowedOrigin("http://localhost:5175");
+       // config.addAllowedOrigin("http://localhost:5174");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
