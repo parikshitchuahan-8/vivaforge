@@ -67,12 +67,7 @@ public class QuizController {
             @RequestParam String title,
             @RequestParam String topic,
             @RequestParam String difficulty,
-            @RequestParam int count,
-            @AuthenticationPrincipal UserDetails userDetails) {
-
-        if(userDetails == null){
-            return ResponseEntity.status(401).build();
-        }
+            @RequestParam int count) {
 
         Quiz quiz = quizService.createAIQuiz(title, topic, difficulty, count);
         return ResponseEntity.ok(quiz);
