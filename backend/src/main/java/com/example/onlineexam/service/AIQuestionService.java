@@ -1,7 +1,6 @@
 package com.example.onlineexam.service;
 
 import com.example.onlineexam.dto.AIQuestionResponse;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
@@ -39,7 +38,8 @@ JSON format:
 """.formatted(count, topic, difficulty);
 
         String response = chatClient
-                .prompt(prompt)
+                .prompt()
+                .user(prompt)
                 .call()
                 .content();
 
@@ -48,8 +48,11 @@ JSON format:
             response = response.trim();
 
             // remove markdown if any
-            response = response.replaceAll("```json", "")
-                    .replaceAll("```", "");
+            response = response
+                    .replace("```json", "")
+                    .replace("```", "")
+                    .replace("\n", "")
+                    .trim();
 
             // extract JSON array safely
             int start = response.indexOf("[");
