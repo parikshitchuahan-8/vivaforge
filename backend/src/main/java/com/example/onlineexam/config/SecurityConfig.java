@@ -35,38 +35,19 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
-
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-
+                .cors(cors -> cors.disable())
                 .authorizeHttpRequests(auth -> auth
-
-                        // allow preflight
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                        // public APIs
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/quizzes/ai/**").permitAll()
-
-                        // ADD THESE
-                        .requestMatchers("/api/study/**").permitAll()
-                        .requestMatchers("/api/interview/**").authenticated()
-                        .requestMatchers("/api/coding/**").authenticated()
-
-                        .anyRequest().authenticated()
-
+                        .anyRequest().permitAll()
                 );
 
-        http.addFilterBefore(
-                jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class
-        );
-
         return http.build();
+
+
+//        http.addFilterBefore(
+//                jwtAuthenticationFilter,
+//                UsernamePasswordAuthenticationFilter.class
+//        );
+
     }
 
     @Bean
