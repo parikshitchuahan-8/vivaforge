@@ -1,94 +1,185 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+
   const { auth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
+  const activeStyle =
+    "text-blue-600 border-b-2 border-blue-600 pb-1";
+
   return (
-    <header className="bg-white shadow-md">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <header className="bg-white shadow-md sticky top-0 z-50">
 
-        {/* Left Side */}
-        <div className="flex items-center space-x-4">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-          <Link to="/" className="text-2xl font-bold text-blue-600">
-            ExamPortal
-          </Link>
+        <div className="flex items-center justify-between h-16">
 
-          {auth.user && (
-            <>
-              <Link
-                to="/ai-quiz"
-                className="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
-              >
-                AI Quiz
-              </Link>
+          {/* LEFT SECTION */}
 
-              <Link
-                to="/interview"
-                className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-              >
-                AI Interview
-              </Link>
+          <div className="flex items-center space-x-6">
 
-              <Link
-                to="/study"
-                className="px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-              >
-                AI Study
-              </Link>
-              <Link
-                to="/coding"
-                className="px-3 py-2 bg-orange-600 text-white rounded-md"
-              >
-                AI Coding
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Right Side */}
-        <div className="flex items-center space-x-4">
-
-          {auth.user ? (
-            <>
-              <span className="hidden sm:block font-medium">
-                Welcome, {auth.user.username}
-              </span>
-
-              <Link
-                to="/profile"
-                className="text-gray-600 hover:text-blue-600"
-              >
-                Profile
-              </Link>
-
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
+            {/* Logo */}
             <Link
-              to="/login"
-              className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700"
+              to="/"
+              className="text-2xl font-bold text-blue-600"
             >
-              Login
+              ExamPortal
             </Link>
-          )}
+
+            {auth.user && (
+
+              <div className="hidden md:flex items-center space-x-4">
+
+                <NavLink
+                  to="/ai-quiz"
+                  className={({ isActive }) =>
+                    `hover:text-blue-600 ${
+                      isActive ? activeStyle : "text-gray-700"
+                    }`
+                  }
+                >
+                  AI Quiz
+                </NavLink>
+
+                <NavLink
+                  to="/interview"
+                  className={({ isActive }) =>
+                    `hover:text-blue-600 ${
+                      isActive ? activeStyle : "text-gray-700"
+                    }`
+                  }
+                >
+                  AI Interview
+                </NavLink>
+
+                <NavLink
+                  to="/coding"
+                  className={({ isActive }) =>
+                    `hover:text-blue-600 ${
+                      isActive ? activeStyle : "text-gray-700"
+                    }`
+                  }
+                >
+                  AI Coding
+                </NavLink>
+
+                <NavLink
+                  to="/study"
+                  className={({ isActive }) =>
+                    `hover:text-blue-600 ${
+                      isActive ? activeStyle : "text-gray-700"
+                    }`
+                  }
+                >
+                  AI Study
+                </NavLink>
+
+              </div>
+
+            )}
+
+          </div>
+
+          {/* RIGHT SECTION */}
+
+          <div className="flex items-center space-x-4">
+
+            {auth.user ? (
+
+              <>
+                <span className="hidden sm:block font-medium text-gray-700">
+                  Welcome, {auth.user.username}
+                </span>
+
+                <NavLink
+                  to="/profile"
+                  className="text-gray-600 hover:text-blue-600"
+                >
+                  Profile
+                </NavLink>
+
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                >
+                  Logout
+                </button>
+              </>
+
+            ) : (
+
+              <Link
+                to="/login"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+              >
+                Login
+              </Link>
+
+            )}
+
+            {/* MOBILE MENU BUTTON */}
+
+            <button
+              className="md:hidden text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              ☰
+            </button>
+
+          </div>
 
         </div>
+
+        {/* MOBILE MENU */}
+
+        {menuOpen && auth.user && (
+
+          <div className="md:hidden mt-4 pb-4 space-y-3">
+
+            <NavLink
+              to="/ai-quiz"
+              className="block text-gray-700 hover:text-blue-600"
+            >
+              AI Quiz
+            </NavLink>
+
+            <NavLink
+              to="/interview"
+              className="block text-gray-700 hover:text-blue-600"
+            >
+              AI Interview
+            </NavLink>
+
+            <NavLink
+              to="/coding"
+              className="block text-gray-700 hover:text-blue-600"
+            >
+              AI Coding
+            </NavLink>
+
+            <NavLink
+              to="/study"
+              className="block text-gray-700 hover:text-blue-600"
+            >
+              AI Study
+            </NavLink>
+
+          </div>
+
+        )}
 
       </nav>
+
     </header>
   );
 };
