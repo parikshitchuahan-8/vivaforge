@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Braces, Code2, Send, Sparkles, Wand2 } from "lucide-react";
 import api from "../services/api";
 
 const CodingInterview = () => {
@@ -46,71 +47,104 @@ const CodingInterview = () => {
 
   return(
 
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6">
+      <section className="surface-panel hero-grid rise-in rounded-[2rem] p-8">
+        <span className="eyebrow mb-5">
+          <Sparkles size={14} />
+          Coding Interview Lab
+        </span>
+        <h1 className="section-title max-w-3xl text-5xl font-bold leading-none tracking-tight text-[var(--text)]">
+          Simulate coding rounds with generated prompts and structured feedback.
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--muted)]">
+          Choose a topic, receive a coding problem, write your solution, and get AI review on your approach.
+        </p>
+      </section>
 
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        AI Coding Interview
-      </h1>
+      <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="surface-panel rise-in rounded-[2rem] p-6 sm:p-8">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-deep)] text-white">
+              <Code2 size={20} />
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent-deep)]">Prompt Setup</p>
+              <h2 className="section-title text-3xl font-bold text-[var(--text)]">Generate a coding challenge</h2>
+            </div>
+          </div>
 
-      <input
-        className="border p-3 w-full mb-4"
-        placeholder="Topic (DSA, Java, Arrays...)"
-        value={topic}
-        onChange={(e)=>setTopic(e.target.value)}
-      />
-
-      <button
-        onClick={generateQuestion}
-        className="bg-blue-600 text-white px-5 py-2 rounded"
-      >
-        Generate Coding Question
-      </button>
-
-      {question && (
-
-        <div className="mt-6">
-
-          <h2 className="font-bold text-lg mb-2">
-            Question
-          </h2>
-
-          <p className="bg-gray-100 p-4 rounded">
-            {question}
-          </p>
-
-          <textarea
-            rows="10"
-            className="border w-full p-3 mt-4 font-mono"
-            placeholder="Write your code here..."
-            value={code}
-            onChange={(e)=>setCode(e.target.value)}
+          <input
+            className="w-full rounded-2xl border border-black/10 bg-white/75 px-4 py-3 outline-none transition focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]"
+            placeholder="Topic (DSA, Java, Arrays...)"
+            value={topic}
+            onChange={(e)=>setTopic(e.target.value)}
           />
 
           <button
-            onClick={submitCode}
-            className="mt-4 bg-green-600 text-white px-5 py-2 rounded"
+            onClick={generateQuestion}
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px] hover:bg-[var(--accent-deep)]"
           >
-            Submit Code
+            Generate Coding Question
+            <Wand2 size={16} />
           </button>
-
-        </div>
-      )}
-
-      {result && (
-
-        <div className="mt-6 bg-white shadow p-4 rounded">
-
-          <h2 className="font-bold mb-2">
-            AI Evaluation
-          </h2>
-
-          <pre className="whitespace-pre-wrap">
-            {result}
-          </pre>
-
         </div>
 
-      )}
+        <div className="space-y-6">
+          {question && (
+
+            <div className="surface-panel rise-in rounded-[2rem] p-6 sm:p-8">
+
+              <h2 className="section-title text-3xl font-bold text-[var(--text)]">
+                Question
+              </h2>
+
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-[var(--muted)]">
+                {question}
+              </p>
+
+              <label className="mt-6 mb-2 block text-sm font-medium text-slate-700">
+                Your Solution
+              </label>
+
+              <textarea
+                rows="12"
+                className="w-full rounded-[1.5rem] border border-black/10 bg-[#1f2a24] px-4 py-4 font-mono text-sm leading-6 text-slate-100 outline-none transition focus:border-[var(--accent)] focus:ring-4 focus:ring-[var(--accent-soft)]"
+                placeholder="Write your code here..."
+                value={code}
+                onChange={(e)=>setCode(e.target.value)}
+              />
+
+              <button
+                onClick={submitCode}
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--success)] px-5 py-3 text-sm font-semibold text-white transition hover:translate-y-[-1px] hover:brightness-95"
+              >
+                Submit Code
+                <Send size={16} />
+              </button>
+
+            </div>
+          )}
+
+          {result && (
+
+            <div className="surface-panel rise-in rounded-[2rem] p-6 sm:p-8">
+
+              <div className="mb-4 flex items-center gap-3">
+                <Braces className="text-[var(--accent-deep)]" size={20} />
+                <h2 className="section-title text-3xl font-bold text-[var(--text)]">
+                  AI Evaluation
+                </h2>
+              </div>
+
+              <pre className="whitespace-pre-wrap font-sans text-sm leading-7 text-[var(--muted)]">
+                {result}
+              </pre>
+
+            </div>
+
+          )}
+        </div>
+      </section>
 
     </div>
 

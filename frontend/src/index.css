@@ -1,1 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:wght@400;600;700&display=swap");
 @import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --bg: #f4efe5;
+  --bg-soft: #fbf7f1;
+  --surface: rgba(255, 252, 247, 0.82);
+  --surface-strong: #fffdf9;
+  --surface-deep: #1f2a24;
+  --text: #18201c;
+  --muted: #617067;
+  --line: rgba(24, 32, 28, 0.1);
+  --accent: #b85c38;
+  --accent-deep: #8e3d1d;
+  --accent-soft: #f3d8c8;
+  --success: #25644a;
+  --danger: #b64232;
+  --shadow: 0 24px 80px rgba(71, 52, 36, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184, 92, 56, 0.16), transparent 28%),
+    radial-gradient(circle at 85% 10%, rgba(37, 100, 74, 0.12), transparent 24%),
+    linear-gradient(180deg, #f8f3ea 0%, #f4efe5 42%, #efe6d9 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-shell::before,
+.app-shell::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-shell::before {
+  top: -8rem;
+  right: -10rem;
+  background: rgba(184, 92, 56, 0.22);
+}
+
+.app-shell::after {
+  bottom: -10rem;
+  left: -8rem;
+  background: rgba(37, 100, 74, 0.18);
+}
+
+.surface-panel {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  font-family: "Source Serif 4", serif;
+  letter-spacing: -0.03em;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(184, 92, 56, 0.16);
+  background: rgba(255, 253, 249, 0.72);
+  color: var(--accent-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-grid {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(24, 32, 28, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 32, 28, 0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent);
+  pointer-events: none;
+}
+
+.rise-in {
+  animation: rise-in 0.7s ease-out both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

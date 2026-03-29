@@ -1,7 +1,8 @@
 package com.example.onlineexam.config;
 
+
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class AiConfig {
 
     @Bean
-    public ChatClient chatClient(OpenAiChatModel openAiChatModel) {
-        return ChatClient.builder(openAiChatModel).build();
+    public ChatClient chatClient(OllamaChatModel ollamaChatModel) {
+        return ChatClient.builder(ollamaChatModel).build();
     }
+
 }

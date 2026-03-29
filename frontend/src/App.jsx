@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/AppNavbar';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage'; // Import the new page
@@ -15,9 +15,9 @@ import CodingInterview from "./pages/CodingInterview";
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="app-shell flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} /> {/* Add the new route */}
