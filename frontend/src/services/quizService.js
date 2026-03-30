@@ -10,6 +10,4 @@ export const submitQuiz = (id, answers) =>
 
 // AI quiz
 export const generateAIQuiz = (data) =>
-  api.post("/quizzes/ai/create", null, {
-    params: data,
-  });
+  api.post("/quizzes/ai/create", data);

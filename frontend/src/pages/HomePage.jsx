@@ -97,7 +97,7 @@ const HomePage = () => {
                                         Exam Track
                                     </span>
                                     <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-slate-600">
-                                        {quiz.questions.length} questions
+                                        {quiz.questionCount} questions
                                     </span>
                                 </div>
                                 <h3 className="section-title text-3xl font-bold text-[var(--text)]">{quiz.title}</h3>
@@ -110,7 +110,7 @@ const HomePage = () => {
                                 <div className="grid grid-cols-2 gap-3">
                                     <div className="rounded-2xl bg-white/70 px-4 py-3">
                                         <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Questions</p>
-                                        <p className="mt-1 text-lg font-semibold text-[var(--text)]">{quiz.questions.length}</p>
+                                        <p className="mt-1 text-lg font-semibold text-[var(--text)]">{quiz.questionCount}</p>
                                     </div>
                                     <div className="rounded-2xl bg-white/70 px-4 py-3">
                                         <p className="text-xs uppercase tracking-[0.16em] text-[var(--muted)]">Duration</p>

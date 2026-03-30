@@ -1,47 +1,63 @@
 package com.example.onlineexam.service;
 
+import com.example.onlineexam.dto.AIQuestionResponse;
+import com.example.onlineexam.dto.QuestionDto;
+import com.example.onlineexam.dto.QuizDto;
 import com.example.onlineexam.dto.QuizSubmissionRequest;
 import com.example.onlineexam.model.Question;
-import com.example.onlineexam.dto.AIQuestionResponse;
 import com.example.onlineexam.model.Quiz;
 import com.example.onlineexam.model.Result;
 import com.example.onlineexam.model.User;
-import com.example.onlineexam.repository.QuestionRepository;
 import com.example.onlineexam.repository.QuizRepository;
 import com.example.onlineexam.repository.ResultRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class QuizService {
 
-    @Autowired
-    private AIQuestionService aiQuestionService;
-
-
-    private final QuestionRepository questionRepository;
+    private final AIQuestionService aiQuestionService;
     private final ResultRepository resultRepository;
     private final QuizRepository quizRepository;
 
+    @Transactional(readOnly = true)
+    public List<QuizDto> getAllQuizzes() {
+        return quizRepository.findAll().stream()
+                .map(this::toQuizDto)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<QuizDto> getQuizById(Long quizId) {
+        return quizRepository.findById(quizId)
+                .map(this::toQuizDto);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<QuestionDto>> getQuizQuestions(Long quizId) {
+        return quizRepository.findById(quizId)
+                .map(quiz -> quiz.getQuestions().stream()
+                        .map(this::toQuestionDto)
+                        .toList());
+    }
+
+    @Transactional
     public Result calculateResult(User user, Long quizId, QuizSubmissionRequest submission) {
         Quiz quiz = quizRepository.findById(quizId).orElseThrow(() -> new RuntimeException("Quiz not found"));
-        Map<Long, Integer> answers = submission.getAnswers();
-        int score = 0;
-
-        for (Map.Entry<Long, Integer> entry : answers.entrySet()) {
-            Question question = questionRepository.findById(entry.getKey()).orElse(null);
-            if (question != null && question.getCorrectAnswerIndex() == entry.getValue()) {
-                score++;
-            }
-        }
+        int score = (int) quiz.getQuestions().stream()
+                .filter(question -> Objects.equals(
+                        submission.getAnswers().get(question.getId()),
+                        question.getCorrectAnswerIndex()
+                ))
+                .count();
 
         Result result = new Result();
         result.setUser(user);
@@ -88,6 +104,22 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    private QuizDto toQuizDto(Quiz quiz) {
+        return QuizDto.builder()
+                .id(quiz.getId())
+                .title(quiz.getTitle())
+                .description(quiz.getDescription())
+                .durationMinutes(quiz.getDurationMinutes())
+                .questionCount(quiz.getQuestions().size())
+                .build();
+    }
 
+    private QuestionDto toQuestionDto(Question question) {
+        QuestionDto dto = new QuestionDto();
+        dto.setId(question.getId());
+        dto.setText(question.getText());
+        dto.setOptions(question.getOptions());
+        return dto;
+    }
 
 }
