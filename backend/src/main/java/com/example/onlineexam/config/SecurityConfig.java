@@ -54,7 +54,7 @@ public class SecurityConfig {
                         // public routes
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/coding/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/quizzes", "/api/quizzes/*", "/api/quizzes/*/questions").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/quizzes", "/api/quizzes/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/quizzes/*/submit").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/quizzes/ai/create").authenticated()
 
