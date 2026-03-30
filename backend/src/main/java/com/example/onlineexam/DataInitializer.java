@@ -6,6 +6,7 @@ import com.example.onlineexam.model.User;
 import com.example.onlineexam.repository.QuizRepository;
 import com.example.onlineexam.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,15 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final QuizRepository quizRepository;
     private final PasswordEncoder passwordEncoder;
+    @Value("${app.seed.enabled:true}")
+    private boolean seedEnabled;
 
     @Override
     public void run(String... args) throws Exception {
+        if (!seedEnabled) {
+            return;
+        }
+
         if (userRepository.count() == 0) {
             User student = new User();
             student.setUsername("student");

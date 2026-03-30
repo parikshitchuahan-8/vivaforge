@@ -68,6 +68,28 @@ Run the frontend using npm.
 
 Configure environment variables such as database credentials and OpenAI API key before starting the application.
 
+Backend environment variables:
+`DB_URL`
+`DB_USERNAME`
+`DB_PASSWORD`
+`JWT_SECRET`
+`JWT_EXPIRATION`
+`GROQ_API_KEY`
+`GROQ_BASE_URL`
+`GROQ_MODEL`
+`GROQ_TEMPERATURE`
+`APP_CORS_ALLOWED_ORIGIN_PATTERNS`
+`APP_SEED_ENABLED`
+
+Frontend environment variables:
+`VITE_API_URL`
+
+Deployment notes:
+Set `APP_SEED_ENABLED=false` in production so the demo `student/password` account is not created.
+Set `APP_CORS_ALLOWED_ORIGIN_PATTERNS` to include your deployed frontend origin.
+For Vercel frontend deployments, set `VITE_API_URL` to your deployed backend URL with `/api`.
+For Render backend deployments, set the env vars from `backend/.env.example`.
+
 Future Enhancements
 
 Admin dashboard for quiz and question management
