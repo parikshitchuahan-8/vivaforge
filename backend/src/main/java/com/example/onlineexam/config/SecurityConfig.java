@@ -57,9 +57,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/coding/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/quizzes", "/api/quizzes/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/quizzes/*/submit").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/api/quizzes/ai/create").authenticated()
+                        // AI quiz creation is public — consistent with /interview, /study, /coding
+                        .requestMatchers(HttpMethod.POST, "/api/quizzes/ai/create").permitAll()
 
-                        // AI routes (optional public)
+                        // AI routes (public)
                         .requestMatchers("/api/interview/**").permitAll()
                         .requestMatchers("/api/study/**").permitAll()
 
