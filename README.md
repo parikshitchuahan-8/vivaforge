@@ -1,6 +1,6 @@
-AI-Powered Online Examination System
+VivaForge
 
-AI-Powered Online Examination System is a full-stack web application designed to conduct online quizzes and automatically evaluate results. The platform allows users to register, log in securely, attempt quizzes, and view their scores instantly. It also includes an AI-based quiz generation feature that can generate questions dynamically based on the given topic and difficulty level.
+VivaForge is a full-stack web application designed to conduct online quizzes and automatically evaluate results. The platform allows users to register, log in securely, attempt quizzes, and view their scores instantly. It also includes AI-powered quiz generation and interview preparation features that create content dynamically from the selected topic and difficulty level.
 
 The system is built using React for the frontend and Spring Boot for the backend, with PostgreSQL used as the database. Authentication is implemented using JWT to ensure secure access to APIs.
 
@@ -42,7 +42,7 @@ Handles user registration, login, and JWT-based authentication.
 Quiz Management Module
 Manages quiz creation, questions, and quiz retrieval.
 
-Online Examination Module
+Assessment Module
 Allows users to attempt quizzes and submit answers.
 
 Result Evaluation Module
@@ -100,7 +100,7 @@ Recommended JDBC format:
 
 2. Render backend
 Create a new Render Web Service from this repository.
-Use the included [render.yaml](/C:/XboxGames/GameSave/java%20fullstack/onlineexamination/render.yaml) blueprint or the root [Dockerfile](/C:/XboxGames/GameSave/java%20fullstack/onlineexamination/Dockerfile).
+Use the included [render.yaml](/C:/XboxGames/GameSave/java%20fullstack/vivaforge/render.yaml) blueprint or the root [Dockerfile](/C:/XboxGames/GameSave/java%20fullstack/vivaforge/Dockerfile).
 
 Set these Render environment variables:
 `PORT=8080`
@@ -127,7 +127,7 @@ Output directory: `dist`
 Set this Vercel environment variable:
 `VITE_API_URL=https://your-backend.onrender.com/api`
 
-The repo includes [vercel.json](/C:/XboxGames/GameSave/java%20fullstack/onlineexamination/vercel.json) so React Router routes rewrite to `index.html`.
+The repo includes [vercel.json](/C:/XboxGames/GameSave/java%20fullstack/vivaforge/vercel.json) so React Router routes rewrite to `index.html`.
 
 4. Recommended launch order
 Deploy Render first.
@@ -138,7 +138,7 @@ Update Render `APP_CORS_ALLOWED_ORIGIN_PATTERNS` with your final Vercel producti
 Future Enhancements
 
 Admin dashboard for quiz and question management
-Timer-based online examination system
+Timer-based assessment system
 Leaderboard and ranking system for users
 AI-generated explanations for quiz answers
 Anti-cheating monitoring system

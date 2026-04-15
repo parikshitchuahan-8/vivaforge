@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: onlineexamination-backend
+    name: vivaforge-backend
     runtime: docker
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/quizzes
