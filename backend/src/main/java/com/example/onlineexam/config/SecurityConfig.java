@@ -30,7 +30,7 @@ public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint unauthorizedHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    @Value("${app.cors.allowed-origin-patterns:http://localhost:*,http://127.0.0.1:*,https://onlineexamination.vercel.app}")
+    @Value("${app.cors.allowed-origin-patterns:http://localhost:*,http://127.0.0.1:*,https://vivaforge.vercel.app}")
     private String allowedOriginPatterns;
 
     @Bean
